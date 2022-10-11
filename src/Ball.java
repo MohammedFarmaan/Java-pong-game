@@ -1,7 +1,5 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
-import javax.swing.*;
 
 public class Ball extends Rectangle{
 
@@ -39,6 +37,6 @@ yVelocity = randomYDirection;
     }
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
-        g.fillOval(x, y, height, width);
+        g.fillOval(x, y, width, height);
     }
 }
