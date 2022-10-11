@@ -33,7 +33,8 @@ public class PongPanel extends JPanel implements Runnable{
     }
 
     public void newBall() {
-
+//        random = new Random()
+        ball = new Ball((GAME_WIDTH/2) - (BALL_DIAMETER/2), (GAME_HEIGHT/2) - (BALL_DIAMETER/2), BALL_DIAMETER, BALL_DIAMETER);
     }
     public void newPaddles() {
         paddle1 = new Paddle(0, (GAME_HEIGHT/2) - (PADDLE_HEIGHT/2), PADDlE_WIDTH, PADDLE_HEIGHT, 1);
@@ -48,11 +49,12 @@ public class PongPanel extends JPanel implements Runnable{
     public void draw(Graphics g) {
         paddle1.draw(g);
         paddle2.draw(g);
+        ball.draw(g);
     }
     public void move() {
         paddle1.move();
         paddle2.move();
-        //ball.move();
+        ball.move();
     }
     public void checkCollision() {
         // Stops paddles at window panel edges
@@ -65,6 +67,15 @@ public class PongPanel extends JPanel implements Runnable{
             paddle2.y=0;
         if(paddle2.y >= (GAME_HEIGHT - PADDLE_HEIGHT))
             paddle2.y = GAME_HEIGHT - PADDLE_HEIGHT;
+
+        // Bounce ball of top & bottom window panel edges
+        if (ball.y <=0){
+            ball.setYDirection(-ball.yVelocity);
+        }
+        if (ball.y >= GAME_HEIGHT - BALL_DIAMETER) {
+            ball.setYDirection(-ball.yVelocity);
+        }
+
     }
     public void run() {
         // Game Loop
