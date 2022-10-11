@@ -68,7 +68,7 @@ public class PongPanel extends JPanel implements Runnable{
         if(paddle2.y >= (GAME_HEIGHT - PADDLE_HEIGHT))
             paddle2.y = GAME_HEIGHT - PADDLE_HEIGHT;
 
-        // Bounce ball of top & bottom window panel edges
+        // Bounce ball off top & bottom window panel edges
         if (ball.y <=0){
             ball.setYDirection(-ball.yVelocity);
         }
@@ -76,6 +76,28 @@ public class PongPanel extends JPanel implements Runnable{
             ball.setYDirection(-ball.yVelocity);
         }
 
+        // Bounces ball off paddles
+        if(ball.intersects(paddle1)) {
+            ball.xVelocity = Math.abs(ball.xVelocity);
+            ball.xVelocity++; // Optional for more difficulty
+            if(ball.yVelocity > 0)
+                ball.yVelocity++; // Optional for more difficulty
+            else
+                ball.yVelocity--;
+            ball.setXDirection(ball.xVelocity);
+            ball.setYDirection(ball.yVelocity );
+        }
+
+        if(ball.intersects(paddle2)) {
+            ball.xVelocity = Math.abs(ball.xVelocity);
+            ball.xVelocity++; // Optional for more difficulty
+            if(ball.yVelocity > 0)
+                ball.yVelocity++; // Optional for more difficulty
+            else
+                ball.yVelocity--;
+            ball.setXDirection(-ball.xVelocity);
+            ball.setYDirection(ball.yVelocity );
+        }
     }
     public void run() {
         // Game Loop
